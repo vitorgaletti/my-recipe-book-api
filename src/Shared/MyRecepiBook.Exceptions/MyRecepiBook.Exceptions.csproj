@@ -8,6 +8,45 @@
 
     <ItemGroup>
       <Compile Remove="Class1.cs" />
+      <Compile Update="ResourceMessagesException.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>ResourceMessagesException.resx</DependentUpon>
+      </Compile>
+      <Compile Update="ResourceMessagesException.pt-BR.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>ResourceMessagesException.pt-BR.resx</DependentUpon>
+      </Compile>
+      <Compile Update="ResourceMessagesException.pt-PT.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>ResourceMessagesException.pt-PT.resx</DependentUpon>
+      </Compile>
+      <Compile Update="ResourceMessagesException.fr.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>ResourceMessagesException.fr.resx</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Update="ResourceMessagesException.resx">
+        <Generator>PublicResXFileCodeGenerator</Generator>
+        <LastGenOutput>ResourceMessagesException.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="ResourceMessagesException.pt-BR.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>ResourceMessagesException.pt-BR.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="ResourceMessagesException.pt-PT.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>ResourceMessagesException.pt-PT.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="ResourceMessagesException.fr.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>ResourceMessagesException.fr.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
 
 </Project>
