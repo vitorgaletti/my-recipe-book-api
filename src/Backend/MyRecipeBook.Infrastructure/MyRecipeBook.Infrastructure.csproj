@@ -4,7 +4,7 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <RootNamespace>MyRecpiBook.Infrastructure</RootNamespace>
+        <RootNamespace>MyRecepiBook.Infrastructure</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
@@ -13,6 +13,11 @@
 
     <ItemGroup>
       <ProjectReference Include="..\MyRecipeBook.Domain\MyRecipeBook.Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.9" />
+      <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="9.0.0" />
     </ItemGroup>
 
 </Project>
