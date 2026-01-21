@@ -29,7 +29,7 @@ public class RegisterUserUseCase(IUserWriteOnlyRepository writeOnlyRepository,
         
         return new ResponseRegisteredUserJson
         {
-            Name = request.Name
+            Name = user.Name
         };
     }
 
