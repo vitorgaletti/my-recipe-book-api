@@ -15,8 +15,12 @@ public static class DependencyInjectionExtension
 {
     public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        AddDbContext(services, configuration);
         AddRepositories(services);
+
+        if (configuration.IsUniTestEnviroment())
+            return;
+
+        AddDbContext(services, configuration);
         AddFluentMigrator_MySql(services, configuration);
     }
 
@@ -29,7 +33,7 @@ public static class DependencyInjectionExtension
             dbContextOptions.UseMySql(connectionString, serverVersion);
         });
     }
-    
+
     private static void AddRepositories(IServiceCollection services)
     {
         services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -40,7 +44,7 @@ public static class DependencyInjectionExtension
     private static void AddFluentMigrator_MySql(IServiceCollection services, IConfiguration configuration)
     {
         var connectionString = configuration.ConnectionString();
-        
+
         services.AddFluentMigratorCore().ConfigureRunner(options =>
         {
             options.AddMySql5()
