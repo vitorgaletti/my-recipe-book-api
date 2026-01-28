@@ -12,9 +12,9 @@ public class CultureMiddleware(RequestDelegate next)
 
         var cultureInfo = new CultureInfo("en");
 
-        if (string.IsNullOrWhiteSpace(requestedCulture).IsFalse() && supportedCultures.Exists(c => c.Name.Equals(requestedCulture)))
+        if (requestedCulture.NotEmpty() && supportedCultures.Exists(c => c.Name.Equals(requestedCulture)))
         {
-            cultureInfo = new CultureInfo(requestedCulture!);
+            cultureInfo = new CultureInfo(requestedCulture);
         }
         
         CultureInfo.CurrentCulture = cultureInfo;
