@@ -11,6 +11,8 @@ namespace WebApi.Test.User.Register;
 
 public class RegisterUserTest(CustomWebApplicationFactory factory) : IClassFixture<CustomWebApplicationFactory>
 {
+    private readonly string method = "user";
+    
     private readonly HttpClient _httpClient = factory.CreateClient();
 
     [Fact]
@@ -18,7 +20,7 @@ public class RegisterUserTest(CustomWebApplicationFactory factory) : IClassFixtu
     {
         var request = RequestRegisterUserJsonBuilder.Build();
 
-        var response = await _httpClient.PostAsJsonAsync("User", request);
+        var response = await _httpClient.PostAsJsonAsync(method, request);
 
         response.StatusCode.Should().Be(HttpStatusCode.Created);
 
@@ -41,7 +43,7 @@ public class RegisterUserTest(CustomWebApplicationFactory factory) : IClassFixtu
         
         _httpClient.DefaultRequestHeaders.Add("Accept-Language", culture);
         
-        var response = await _httpClient.PostAsJsonAsync("User", request);
+        var response = await _httpClient.PostAsJsonAsync(method, request);
         
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         
