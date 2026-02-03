@@ -3,7 +3,7 @@ using FluentValidation.Results;
 using MyRecepiBook.Communication.Requests;
 using MyRecepiBook.Communication.Responses;
 using MyRecepiBook.Exceptions;
-using MyRecipeBook.Application.Services.AutoMapper;
+using MyRecepiBook.Exceptions.ExceptionBase;
 using MyRecipeBook.Application.Services.Cryptography;
 using MyRecipeBook.Domain.Repositories;
 using MyRecipeBook.Domain.Repositories.User;

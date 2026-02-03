@@ -13,20 +13,26 @@ public class ExceptionFilter : IExceptionFilter
     {
         if (context.Exception is MyRecepiBookException)
             HandleProjectException(context);
-        else 
+        else
             ThrowUnknowException(context);
     }
 
-    private static void  HandleProjectException(ExceptionContext context)
+    private static void HandleProjectException(ExceptionContext context)
     {
-        if (context.Exception is not ErrorOnValidationException) return;
-        
-        var exception = context.Exception as ErrorOnValidationException;
-            
-        context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
-        context.Result = new BadRequestObjectResult(new ResponseErrorJson(exception!.ErrorMessages));
+        if (context.Exception is InvalidLoginException)
+        {
+            context.HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+            context.Result = new UnauthorizedObjectResult(new ResponseErrorJson(context.Exception.Message));
+        }
+        else if (context.Exception is ErrorOnValidationException)
+        {
+            var exception = context.Exception as ErrorOnValidationException;
+
+            context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+            context.Result = new BadRequestObjectResult(new ResponseErrorJson(exception!.ErrorMessages));
+        }
     }
-    
+
     private static void ThrowUnknowException(ExceptionContext context)
     {
         context.HttpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;

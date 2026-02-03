@@ -4,6 +4,7 @@ using CommonTestUtilities.Repositories;
 using CommonTestUtilities.Requests;
 using FluentAssertions;
 using MyRecepiBook.Exceptions;
+using MyRecepiBook.Exceptions.ExceptionBase;
 using MyRecipeBook.Application.UseCases.User.Register;
 
 namespace UseCases.Test.User.Register;

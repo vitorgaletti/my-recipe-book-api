@@ -1,6 +1,5 @@
 using System.Globalization;
 using System.Net;
-using System.Net.Http.Json;
 using System.Text.Json;
 using CommonTestUtilities.Requests;
 using FluentAssertions;
@@ -9,18 +8,16 @@ using WebApi.Test.InlineData;
 
 namespace WebApi.Test.User.Register;
 
-public class RegisterUserTest(CustomWebApplicationFactory factory) : IClassFixture<CustomWebApplicationFactory>
+public class RegisterUserTest(CustomWebApplicationFactory factory) : MyRecipeBookClassFixture(factory)
 {
-    private readonly string method = "user";
-    
-    private readonly HttpClient _httpClient = factory.CreateClient();
+    private const string Method = "user";
 
     [Fact]
     public async Task Success()
     {
         var request = RequestRegisterUserJsonBuilder.Build();
 
-        var response = await _httpClient.PostAsJsonAsync(method, request);
+        var response = await DoPost(Method, request);
 
         response.StatusCode.Should().Be(HttpStatusCode.Created);
 
@@ -38,12 +35,7 @@ public class RegisterUserTest(CustomWebApplicationFactory factory) : IClassFixtu
         var request = RequestRegisterUserJsonBuilder.Build();
         request.Name = string.Empty;
         
-        if (_httpClient.DefaultRequestHeaders.Contains("Accept-Language"))
-            _httpClient.DefaultRequestHeaders.Remove("Accept-Language");
-        
-        _httpClient.DefaultRequestHeaders.Add("Accept-Language", culture);
-        
-        var response = await _httpClient.PostAsJsonAsync(method, request);
+        var response = await DoPost(Method, request, culture);
         
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         
