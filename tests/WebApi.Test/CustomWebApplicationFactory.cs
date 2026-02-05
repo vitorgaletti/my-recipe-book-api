@@ -1,4 +1,5 @@
 using CommonTestUtilities.Entities;
+using CommonTestUtilities.Tokens;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
@@ -33,6 +34,8 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
                     options.UseInMemoryDatabase("InMemoryDbForTesting");
                     options.UseInternalServiceProvider(provider);
                 });
+
+                services.AddScoped(options => JwtTokenGeneratorBuilder.Build());
 
                 using var scope = services.BuildServiceProvider().CreateScope();
 

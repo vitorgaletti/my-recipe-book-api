@@ -1,3 +1,4 @@
+using Microsoft.OpenApi.Models;
 using MyRecepiBook.Infrastructure;
 using MyRecepiBook.Infrastructure.Extensions;
 using MyRecepiBook.Infrastructure.Migrations;
@@ -9,8 +10,41 @@ using MyRecipeBook.Application;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-builder.Services.AddControllers().AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new StringConverter()));
+
+builder.Services.AddSwaggerGen(options =>
+{
+    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Description = @"JWT Authorization header using the Bearer scheme.
+                        Enter 'Bearer' [space] and then your token in the text input below.
+                        Example: 'Bearer 12345abcdef'",
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer"
+    });
+
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                },
+                Scheme = "oauth2",
+                Name = "Bearer",
+                In = ParameterLocation.Header,
+            },
+            new List<string>()
+        }
+    });
+});
+
+builder.Services.AddControllers()
+    .AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new StringConverter()));
 
 builder.Services.AddMvc(options => options.Filters.Add(typeof(ExceptionFilter)));
 
@@ -40,9 +74,9 @@ void MigrateDatabase()
 {
     if (builder.Configuration.IsUniTestEnviroment())
         return;
-    
+
     var connectionString = builder.Configuration.ConnectionString();
-    
+
     var serviceScope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope();
 
     DatabaseMigration.Migrate(connectionString, serviceScope.ServiceProvider);
@@ -50,5 +84,7 @@ void MigrateDatabase()
 
 public partial class Program
 {
-    protected  Program() { }
+    protected Program()
+    {
+    }
 }

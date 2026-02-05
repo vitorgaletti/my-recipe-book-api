@@ -3,20 +3,20 @@ using MyRecepiBook.Communication.Responses;
 using MyRecepiBook.Exceptions.ExceptionBase;
 using MyRecipeBook.Application.Services.Cryptography;
 using MyRecipeBook.Domain.Repositories.User;
+using MyRecipeBook.Domain.Security.Tokens;
 
 namespace MyRecipeBook.Application.UseCases.Login.DoLogin;
 
-public class DoLoginUseCase(IUserReadOnlyRepository repository, PasswordEncripter passwordEncripter) : IDoLoginUseCase
+public class DoLoginUseCase(
+    IUserReadOnlyRepository repository,
+    PasswordEncripter passwordEncripter,
+    IAccessTokenGenerator accessTokenGenerator) : IDoLoginUseCase
 {
-    private readonly IUserReadOnlyRepository _repository = repository;
-
-    private readonly PasswordEncripter _passwordEncripter = passwordEncripter;
-
     public async Task<ResponseRegisteredUserJson> Execute(RequestLoginJson request)
     {
-        var encryptedPassword = _passwordEncripter.Encrypt(request.Password);
+        var encryptedPassword = passwordEncripter.Encrypt(request.Password);
 
-        var user = await _repository.GetByEmailAndPassword(request.Email, encryptedPassword);
+        var user = await repository.GetByEmailAndPassword(request.Email, encryptedPassword);
 
         if (user is null)
             throw new InvalidLoginException();
@@ -24,6 +24,10 @@ public class DoLoginUseCase(IUserReadOnlyRepository repository, PasswordEncripte
         return new ResponseRegisteredUserJson
         {
             Name = user.Name,
+            Tokens = new ResponseTokenJson
+            {
+                AccessToken = accessTokenGenerator.Generate(user.UserIdentifier)
+            }
         };
     }
 }

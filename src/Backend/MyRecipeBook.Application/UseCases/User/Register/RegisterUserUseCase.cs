@@ -7,6 +7,7 @@ using MyRecepiBook.Exceptions.ExceptionBase;
 using MyRecipeBook.Application.Services.Cryptography;
 using MyRecipeBook.Domain.Repositories;
 using MyRecipeBook.Domain.Repositories.User;
+using MyRecipeBook.Domain.Security.Tokens;
 
 namespace MyRecipeBook.Application.UseCases.User.Register;
 
@@ -14,7 +15,8 @@ public class RegisterUserUseCase(IUserWriteOnlyRepository writeOnlyRepository,
                                  IUserReadOnlyRepository readOnlyRepository,
                                  IUnitOfWork unitOfWork,
                                  IMapper mapper,
-                                 PasswordEncripter passwordEncripter) : IRegisterUserUseCase
+                                 PasswordEncripter passwordEncripter,
+                                 IAccessTokenGenerator accessTokenGenerator) : IRegisterUserUseCase
 {
     public async Task<ResponseRegisteredUserJson> Execute(RequestRegisterUserJson request)
     {
@@ -23,13 +25,18 @@ public class RegisterUserUseCase(IUserWriteOnlyRepository writeOnlyRepository,
         
         var user = mapper.Map<Domain.Entities.User>(request);
         user.Password = passwordEncripter.Encrypt(request.Password);
+        user.UserIdentifier = Guid.NewGuid();
 
         await writeOnlyRepository.Add(user);
         await unitOfWork.Commit();
         
         return new ResponseRegisteredUserJson
         {
-            Name = user.Name
+            Name = user.Name,
+            Tokens = new ResponseTokenJson
+            {
+                AccessToken = accessTokenGenerator.Generate(user.UserIdentifier)
+            }
         };
     }
 
