@@ -16,4 +16,7 @@ public class UserRepository(MyRecepiBookDbContext dbContext) : IUserWriteOnlyRep
         return await dbContext.Users.AsNoTracking().FirstOrDefaultAsync(user =>
             user.Email.Equals(email) && user.Password.Equals(password) && user.IsActive);
     }
+
+    public async Task<bool> ExistActiveUserWithIdentifier(Guid userIdentifier) =>
+        await dbContext.Users.AnyAsync(user => user.UserIdentifier.Equals(userIdentifier) && user.IsActive);
 }

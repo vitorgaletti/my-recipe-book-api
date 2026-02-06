@@ -7,9 +7,12 @@ using MyRecepiBook.Infrastructure.DataAccess;
 using MyRecepiBook.Infrastructure.DataAccess.Repositories;
 using MyRecepiBook.Infrastructure.Extensions;
 using MyRecepiBook.Infrastructure.Security.Tokens.Access.Generator;
+using MyRecepiBook.Infrastructure.Security.Tokens.Access.Validator;
+using MyRecepiBook.Infrastructure.Services.LoggedUser;
 using MyRecipeBook.Domain.Repositories;
 using MyRecipeBook.Domain.Repositories.User;
 using MyRecipeBook.Domain.Security.Tokens;
+using MyRecipeBook.Domain.Services.LoggedUser;
 
 namespace MyRecepiBook.Infrastructure;
 
@@ -18,6 +21,7 @@ public static class DependencyInjectionExtension
     public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         AddRepositories(services);
+        AddLoggedUser(services);
         AddTokens(services, configuration);
 
         if (configuration.IsUniTestEnviroment())
@@ -62,5 +66,8 @@ public static class DependencyInjectionExtension
         var signingKey = configuration.GetValue<string>("Settings:Jwt:SigningKey");
 
         services.AddScoped<IAccessTokenGenerator>(option => new JwtTokenGenerator(expirationTimeMinutes, signingKey!));
+        services.AddScoped<IAccessTokenValidator>(option => new JwtTokenValidator(signingKey!));
     }
+    
+    private static void AddLoggedUser(IServiceCollection services) => services.AddScoped<ILoggedUser, LoggedUser>();
 }

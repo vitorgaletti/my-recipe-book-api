@@ -105,6 +105,15 @@ namespace MyRecepiBook.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sem token.
+        /// </summary>
+        internal static string NO_TOKEN {
+            get {
+                return ResourceManager.GetString("NO_TOKEN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A senha deve ter mais de 6 caracteres..
         /// </summary>
         internal static string PASSWORD_EMPTY {
@@ -119,6 +128,15 @@ namespace MyRecepiBook.Exceptions {
         internal static string UNKNOWN_ERROR {
             get {
                 return ResourceManager.GetString("UNKNOWN_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Usuário sem permissão de acesso ao recurso.
+        /// </summary>
+        internal static string USER_WITHOUT_PERMISSION_ACCESS_RESOURCE {
+            get {
+                return ResourceManager.GetString("USER_WITHOUT_PERMISSION_ACCESS_RESOURCE", resourceCulture);
             }
         }
     }
