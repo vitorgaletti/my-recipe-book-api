@@ -96,6 +96,15 @@ namespace MyRecepiBook.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Le mot de passe doit comporter plus de 6 caractères.
+        /// </summary>
+        internal static string INVALID_PASSWORD {
+            get {
+                return ResourceManager.GetString("INVALID_PASSWORD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Le nom ne peut pas être vide..
         /// </summary>
         internal static string NAME_EMPTY {
@@ -110,6 +119,15 @@ namespace MyRecepiBook.Exceptions {
         internal static string NO_TOKEN {
             get {
                 return ResourceManager.GetString("NO_TOKEN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Le mot de passe saisi est différent du mot de passe actuel..
+        /// </summary>
+        internal static string PASSWORD_DIFFERENT_CURRENT_PASSWORD {
+            get {
+                return ResourceManager.GetString("PASSWORD_DIFFERENT_CURRENT_PASSWORD", resourceCulture);
             }
         }
         

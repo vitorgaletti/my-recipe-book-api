@@ -6,11 +6,13 @@ using Microsoft.Extensions.DependencyInjection;
 using MyRecepiBook.Infrastructure.DataAccess;
 using MyRecepiBook.Infrastructure.DataAccess.Repositories;
 using MyRecepiBook.Infrastructure.Extensions;
+using MyRecepiBook.Infrastructure.Security.Criptography;
 using MyRecepiBook.Infrastructure.Security.Tokens.Access.Generator;
 using MyRecepiBook.Infrastructure.Security.Tokens.Access.Validator;
 using MyRecepiBook.Infrastructure.Services.LoggedUser;
 using MyRecipeBook.Domain.Repositories;
 using MyRecipeBook.Domain.Repositories.User;
+using MyRecipeBook.Domain.Security.Cryptography;
 using MyRecipeBook.Domain.Security.Tokens;
 using MyRecipeBook.Domain.Services.LoggedUser;
 
@@ -20,6 +22,7 @@ public static class DependencyInjectionExtension
 {
     public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
+        AddPasswordEncrypter(services, configuration);
         AddRepositories(services);
         AddLoggedUser(services);
         AddTokens(services, configuration);
@@ -46,6 +49,7 @@ public static class DependencyInjectionExtension
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<IUserWriteOnlyRepository, UserRepository>();
         services.AddScoped<IUserReadOnlyRepository, UserRepository>();
+        services.AddScoped<IUserUpdateOnlyRepository, UserRepository>();
     }
 
     private static void AddFluentMigrator_MySql(IServiceCollection services, IConfiguration configuration)
@@ -70,4 +74,11 @@ public static class DependencyInjectionExtension
     }
     
     private static void AddLoggedUser(IServiceCollection services) => services.AddScoped<ILoggedUser, LoggedUser>();
+    
+    private static void AddPasswordEncrypter(IServiceCollection services, IConfiguration configuration)
+    {
+        var additionalKey = configuration.GetValue<string>("Settings:Password:AdditionalKey");
+
+        services.AddScoped<IPasswordEncripter>(option => new Sha512Encripter(additionalKey!));
+    }
 }

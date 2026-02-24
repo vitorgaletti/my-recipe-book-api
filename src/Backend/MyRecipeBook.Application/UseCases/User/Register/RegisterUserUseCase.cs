@@ -4,9 +4,9 @@ using MyRecepiBook.Communication.Requests;
 using MyRecepiBook.Communication.Responses;
 using MyRecepiBook.Exceptions;
 using MyRecepiBook.Exceptions.ExceptionBase;
-using MyRecipeBook.Application.Services.Cryptography;
 using MyRecipeBook.Domain.Repositories;
 using MyRecipeBook.Domain.Repositories.User;
+using MyRecipeBook.Domain.Security.Cryptography;
 using MyRecipeBook.Domain.Security.Tokens;
 
 namespace MyRecipeBook.Application.UseCases.User.Register;
@@ -15,7 +15,7 @@ public class RegisterUserUseCase(IUserWriteOnlyRepository writeOnlyRepository,
                                  IUserReadOnlyRepository readOnlyRepository,
                                  IUnitOfWork unitOfWork,
                                  IMapper mapper,
-                                 PasswordEncripter passwordEncripter,
+                                 IPasswordEncripter passwordEncripter,
                                  IAccessTokenGenerator accessTokenGenerator) : IRegisterUserUseCase
 {
     public async Task<ResponseRegisteredUserJson> Execute(RequestRegisterUserJson request)

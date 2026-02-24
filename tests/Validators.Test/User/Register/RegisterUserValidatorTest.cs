@@ -62,6 +62,7 @@ public class RegisterUserValidatorTest
         result.Errors.ShouldContain(e => e.ErrorMessage.Equals(ResourceMessagesException.EMAIL_INVALID));
     }
 
+    
     [Theory]
     [InlineData(1)]
     [InlineData(2)]
@@ -77,6 +78,22 @@ public class RegisterUserValidatorTest
         var result = validator.Validate(request);
 
         result.IsValid.ShouldBeFalse();
+
+        result.Errors.ShouldContain(e => e.ErrorMessage.Equals(ResourceMessagesException.INVALID_PASSWORD));
+    }
+    
+    [Fact]
+    public void Error_Password_Empty()
+    {
+        var validator = new RegisterUserValidator();
+
+        var request = RequestRegisterUserJsonBuilder.Build();
+        request.Password = string.Empty;
+
+        var result = validator.Validate(request);
+
+        result.IsValid.ShouldBeFalse();
+
         result.Errors.ShouldContain(e => e.ErrorMessage.Equals(ResourceMessagesException.PASSWORD_EMPTY));
     }
 }

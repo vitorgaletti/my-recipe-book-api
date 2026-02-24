@@ -1,18 +1,15 @@
 using System.Security.Cryptography;
 using System.Text;
+using MyRecipeBook.Domain.Security.Cryptography;
 
-namespace MyRecipeBook.Application.Services.Cryptography;
+namespace MyRecepiBook.Infrastructure.Security.Criptography;
 
-public class PasswordEncripter(string additionKey)
+public class Sha512Encripter(string additionKey) : IPasswordEncripter
 {
-    private readonly string _additionKey = additionKey;
-
     public string Encrypt(string password)
     {
-        var chaveAdicional = "ABC";
+        var newPassword = $"{password}{additionKey}";
 
-        var newPassword = $"{password}{chaveAdicional}";
-        
         var bytes = Encoding.UTF8.GetBytes(newPassword);
         var hashBytes = SHA512.HashData(bytes);
 
