@@ -60,6 +60,24 @@ namespace MyRecepiBook.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to La valeur de temps de cuisson fournie n&apos;est pas prise en charge..
+        /// </summary>
+        internal static string COOKING_TIME_NOT_SUPPORTED {
+            get {
+                return ResourceManager.GetString("COOKING_TIME_NOT_SUPPORTED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Le niveau de difficulté spécifié pour la recette n&apos;est pas pris en charge..
+        /// </summary>
+        internal static string DIFFICULTY_LEVEL_NOT_SUPPORTED {
+            get {
+                return ResourceManager.GetString("DIFFICULTY_LEVEL_NOT_SUPPORTED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email déjà enregistré..
         /// </summary>
         internal static string EMAIL_ALREADY_REGISTERED {
@@ -137,6 +155,15 @@ namespace MyRecepiBook.Exceptions {
         internal static string PASSWORD_EMPTY {
             get {
                 return ResourceManager.GetString("PASSWORD_EMPTY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Le titre de la recette est laissé vide, veuillez fournir un titre valide..
+        /// </summary>
+        internal static string RECIPE_TITLE_EMPTY {
+            get {
+                return ResourceManager.GetString("RECIPE_TITLE_EMPTY", resourceCulture);
             }
         }
         
