@@ -60,6 +60,24 @@ namespace MyRecepiBook.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Notez qu&apos;au moins un ingrédient est requis..
+        /// </summary>
+        internal static string AT_LEAST_ONE_INGREDIENT {
+            get {
+                return ResourceManager.GetString("AT_LEAST_ONE_INGREDIENT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Veillez à ce qu&apos;il y ait au moins une instruction pour la recette..
+        /// </summary>
+        internal static string AT_LEAST_ONE_INSTRUCTION {
+            get {
+                return ResourceManager.GetString("AT_LEAST_ONE_INSTRUCTION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to La valeur de temps de cuisson fournie n&apos;est pas prise en charge..
         /// </summary>
         internal static string COOKING_TIME_NOT_SUPPORTED {
@@ -74,6 +92,15 @@ namespace MyRecepiBook.Exceptions {
         internal static string DIFFICULTY_LEVEL_NOT_SUPPORTED {
             get {
                 return ResourceManager.GetString("DIFFICULTY_LEVEL_NOT_SUPPORTED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Le type de plat choisi n&apos;est pas supporté..
+        /// </summary>
+        internal static string DISH_TYPE_NOT_SUPPORTED {
+            get {
+                return ResourceManager.GetString("DISH_TYPE_NOT_SUPPORTED", resourceCulture);
             }
         }
         
@@ -114,6 +141,33 @@ namespace MyRecepiBook.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to L&apos;ingrédient est vide, veuillez fournir une valeur valide..
+        /// </summary>
+        internal static string INGREDIENT_EMPTY {
+            get {
+                return ResourceManager.GetString("INGREDIENT_EMPTY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to L&apos;instruction est vide, veuillez fournir une instruction valide..
+        /// </summary>
+        internal static string INSTRUCTION_EMPTY {
+            get {
+                return ResourceManager.GetString("INSTRUCTION_EMPTY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to L&apos;instruction dépasse la limite maximale de 2000 caractères..
+        /// </summary>
+        internal static string INSTRUCTION_EXCEEDS_LIMIT_CHARACTERS {
+            get {
+                return ResourceManager.GetString("INSTRUCTION_EXCEEDS_LIMIT_CHARACTERS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Le mot de passe doit comporter plus de 6 caractères.
         /// </summary>
         internal static string INVALID_PASSWORD {
@@ -141,6 +195,15 @@ namespace MyRecepiBook.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Utilisez une valeur non négative pour l&apos;étape de l&apos;instruction..
+        /// </summary>
+        internal static string NON_NEGATIVE_INSTRUCTION_STEP {
+            get {
+                return ResourceManager.GetString("NON_NEGATIVE_INSTRUCTION_STEP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Le mot de passe saisi est différent du mot de passe actuel..
         /// </summary>
         internal static string PASSWORD_DIFFERENT_CURRENT_PASSWORD {
@@ -164,6 +227,15 @@ namespace MyRecepiBook.Exceptions {
         internal static string RECIPE_TITLE_EMPTY {
             get {
                 return ResourceManager.GetString("RECIPE_TITLE_EMPTY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lorsque vous ajoutez des instructions, veillez à ce que chacune d&apos;entre elles ait un numéro d&apos;étape unique. Deux instructions ou plus ne peuvent pas avoir la même étape..
+        /// </summary>
+        internal static string TWO_OR_MORE_INSTRUCTIONS_SAME_ORDER {
+            get {
+                return ResourceManager.GetString("TWO_OR_MORE_INSTRUCTIONS_SAME_ORDER", resourceCulture);
             }
         }
         

@@ -11,6 +11,7 @@ using MyRecepiBook.Infrastructure.Security.Tokens.Access.Generator;
 using MyRecepiBook.Infrastructure.Security.Tokens.Access.Validator;
 using MyRecepiBook.Infrastructure.Services.LoggedUser;
 using MyRecipeBook.Domain.Repositories;
+using MyRecipeBook.Domain.Repositories.Recipe;
 using MyRecipeBook.Domain.Repositories.User;
 using MyRecipeBook.Domain.Security.Cryptography;
 using MyRecipeBook.Domain.Security.Tokens;
@@ -50,6 +51,7 @@ public static class DependencyInjectionExtension
         services.AddScoped<IUserWriteOnlyRepository, UserRepository>();
         services.AddScoped<IUserReadOnlyRepository, UserRepository>();
         services.AddScoped<IUserUpdateOnlyRepository, UserRepository>();
+        services.AddScoped<IRecipeWriteOnlyRepository, RecipeRepository>();
     }
 
     private static void AddFluentMigrator_MySql(IServiceCollection services, IConfiguration configuration)

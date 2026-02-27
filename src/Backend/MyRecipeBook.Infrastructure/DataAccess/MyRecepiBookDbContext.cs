@@ -8,6 +8,8 @@ public class MyRecepiBookDbContext : DbContext
     public MyRecepiBookDbContext(DbContextOptions options) : base(options) { }
     
     public DbSet<User> Users { get; set; }
+    
+    public DbSet<Recipe> Recipes { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

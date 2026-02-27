@@ -60,6 +60,24 @@ namespace MyRecepiBook.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Observe que é necessário pelo menos um ingrediente..
+        /// </summary>
+        internal static string AT_LEAST_ONE_INGREDIENT {
+            get {
+                return ResourceManager.GetString("AT_LEAST_ONE_INGREDIENT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Certifique-se de que haja pelo menos uma instrução fornecida para a receita..
+        /// </summary>
+        internal static string AT_LEAST_ONE_INSTRUCTION {
+            get {
+                return ResourceManager.GetString("AT_LEAST_ONE_INSTRUCTION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to O valor de tempo de preparo fornecido não é suportado..
         /// </summary>
         internal static string COOKING_TIME_NOT_SUPPORTED {
@@ -74,6 +92,15 @@ namespace MyRecepiBook.Exceptions {
         internal static string DIFFICULTY_LEVEL_NOT_SUPPORTED {
             get {
                 return ResourceManager.GetString("DIFFICULTY_LEVEL_NOT_SUPPORTED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to O tipo de prato escolhido não é suportado..
+        /// </summary>
+        internal static string DISH_TYPE_NOT_SUPPORTED {
+            get {
+                return ResourceManager.GetString("DISH_TYPE_NOT_SUPPORTED", resourceCulture);
             }
         }
         
@@ -114,6 +141,33 @@ namespace MyRecepiBook.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to O ingrediente foi deixado em branco; forneça um valor válido..
+        /// </summary>
+        internal static string INGREDIENT_EMPTY {
+            get {
+                return ResourceManager.GetString("INGREDIENT_EMPTY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A instrução foi deixada em branco; forneça uma instrução válida..
+        /// </summary>
+        internal static string INSTRUCTION_EMPTY {
+            get {
+                return ResourceManager.GetString("INSTRUCTION_EMPTY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A instrução excede o limite máximo de 2000 caracteres..
+        /// </summary>
+        internal static string INSTRUCTION_EXCEEDS_LIMIT_CHARACTERS {
+            get {
+                return ResourceManager.GetString("INSTRUCTION_EXCEEDS_LIMIT_CHARACTERS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &gt;A senha deve ter mais de 6 caracteres..
         /// </summary>
         internal static string INVALID_PASSWORD {
@@ -141,6 +195,15 @@ namespace MyRecepiBook.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use um valor não negativo para a etapa de instrução..
+        /// </summary>
+        internal static string NON_NEGATIVE_INSTRUCTION_STEP {
+            get {
+                return ResourceManager.GetString("NON_NEGATIVE_INSTRUCTION_STEP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A senha inserida é diferente da senha atual..
         /// </summary>
         internal static string PASSWORD_DIFFERENT_CURRENT_PASSWORD {
@@ -164,6 +227,15 @@ namespace MyRecepiBook.Exceptions {
         internal static string RECIPE_TITLE_EMPTY {
             get {
                 return ResourceManager.GetString("RECIPE_TITLE_EMPTY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ao adicionar instruções, certifique-se de que cada uma tenha um número de etapa exclusivo. Duas ou mais instruções não podem ter o mesmo pedido..
+        /// </summary>
+        internal static string TWO_OR_MORE_INSTRUCTIONS_SAME_ORDER {
+            get {
+                return ResourceManager.GetString("TWO_OR_MORE_INSTRUCTIONS_SAME_ORDER", resourceCulture);
             }
         }
         
