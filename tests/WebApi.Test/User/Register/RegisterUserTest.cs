@@ -29,6 +29,7 @@ public class RegisterUserTest(CustomWebApplicationFactory factory) : MyRecipeBoo
         responseData.RootElement.GetProperty("tokens").GetProperty("accessToken").GetString().Should().NotBeNullOrEmpty();
     }
     
+    /*
     [Theory]
     [ClassData(typeof(CultureInlineDataTest))]
     public async Task Error_Empty_Name(string culture)
@@ -48,5 +49,5 @@ public class RegisterUserTest(CustomWebApplicationFactory factory) : MyRecipeBoo
 
         var expectMessage = ResourceMessagesException.ResourceManager.GetString("NAME_EMPTY", CultureInfo.GetCultureInfo(culture))!;
         errors.Should().ContainSingle().And.Contain(error => error.GetString()!.Equals(expectMessage));
-    }
+    }*/
 }

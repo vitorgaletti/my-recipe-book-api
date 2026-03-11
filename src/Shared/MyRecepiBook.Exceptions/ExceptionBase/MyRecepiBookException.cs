@@ -1,9 +1,11 @@
+using System.Net;
+
 namespace MyRecepiBook.Exceptions.ExceptionBase;
 
-public class MyRecepiBookException : SystemException
+public abstract class MyRecepiBookException : SystemException
 {
-    public MyRecepiBookException(string message) : base(message)
-    {
-        
-    }
+    protected MyRecepiBookException(string message) : base(message) { }
+    
+    public abstract IList<string> GetErrorMessages();
+    public abstract HttpStatusCode GetStatusCode();
 }

@@ -46,6 +46,13 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
 
                 services.AddScoped(options => JwtTokenGeneratorBuilder.Build());
 
+                // Remove and replace Sqids encoder with test configuration
+                var sqidsDescriptor = services.SingleOrDefault(d => d.ServiceType == typeof(Sqids.SqidsEncoder<long>));
+                if (sqidsDescriptor is not null)
+                    services.Remove(sqidsDescriptor);
+                
+                services.AddSingleton(IdEncripterBuilder.Build());
+
                 using var scope = services.BuildServiceProvider().CreateScope();
 
                 var dbContext = scope.ServiceProvider.GetRequiredService<MyRecepiBookDbContext>();

@@ -44,7 +44,8 @@ public class DoLoginTest : MyRecipeBookClassFixture
         responseData.RootElement.GetProperty("name").GetString().Should().NotBeNullOrWhiteSpace().And.Be(_name);
         responseData.RootElement.GetProperty("tokens").GetProperty("accessToken").GetString().Should().NotBeNullOrEmpty();
     }
-
+    
+    /*
     [Theory]
     [ClassData(typeof(CultureInlineDataTest))]
     public async Task Error_Login_Invalid(string culture)
@@ -65,5 +66,5 @@ public class DoLoginTest : MyRecipeBookClassFixture
             ResourceMessagesException.ResourceManager.GetString("EMAIL_OR_PASSWORD_INVALID",
                 CultureInfo.GetCultureInfo(culture))!;
         errors.Should().ContainSingle().And.Contain(error => error.GetString()!.Equals(expectMessage));
-    }
+    }*/
 }

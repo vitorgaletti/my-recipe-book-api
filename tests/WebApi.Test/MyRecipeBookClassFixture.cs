@@ -37,10 +37,8 @@ public class MyRecipeBookClassFixture(CustomWebApplicationFactory factory) : ICl
 
     private void ChangeRequestCulture(string culture)
     {
-        if (_httpClient.DefaultRequestHeaders.Contains("Accept-Language"))
-            _httpClient.DefaultRequestHeaders.Remove("Accept-Language");
-
-        _httpClient.DefaultRequestHeaders.Add("Accept-Language", culture);
+        _httpClient.DefaultRequestHeaders.AcceptLanguage.Clear();
+        _httpClient.DefaultRequestHeaders.AcceptLanguage.Add(new StringWithQualityHeaderValue(culture));
     }
 
     private void AuthorizeRequest(string token)

@@ -84,4 +84,7 @@
     <data name="TWO_OR_MORE_INSTRUCTIONS_SAME_ORDER" xml:space="preserve">
         <value>Lorsque vous ajoutez des instructions, veillez à ce que chacune d'entre elles ait un numéro d'étape unique. Deux instructions ou plus ne peuvent pas avoir la même étape.</value>
     </data>
+    <data name="RECIPE_NOT_FOUND" xml:space="preserve">
+        <value>La recette n'a pas été trouvée.</value>
+    </data>
 </root>

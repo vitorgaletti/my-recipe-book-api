@@ -222,6 +222,15 @@ namespace MyRecepiBook.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to La recette n&apos;a pas été trouvée..
+        /// </summary>
+        internal static string RECIPE_NOT_FOUND {
+            get {
+                return ResourceManager.GetString("RECIPE_NOT_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Le titre de la recette est laissé vide, veuillez fournir un titre valide..
         /// </summary>
         internal static string RECIPE_TITLE_EMPTY {

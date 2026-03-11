@@ -11,31 +11,21 @@ public class ExceptionFilter : IExceptionFilter
 {
     public void OnException(ExceptionContext context)
     {
-        if (context.Exception is MyRecepiBookException)
-            HandleProjectException(context);
+        if(context.Exception is MyRecepiBookException myRecipeBookException)
+            HandleProjectException(myRecipeBookException, context);
         else
             ThrowUnknowException(context);
     }
 
-    private static void HandleProjectException(ExceptionContext context)
+    private static void HandleProjectException(MyRecepiBookException myRecipeBookException, ExceptionContext context)
     {
-        if (context.Exception is InvalidLoginException)
-        {
-            context.HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
-            context.Result = new UnauthorizedObjectResult(new ResponseErrorJson(context.Exception.Message));
-        }
-        else if (context.Exception is ErrorOnValidationException)
-        {
-            var exception = context.Exception as ErrorOnValidationException;
-
-            context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
-            context.Result = new BadRequestObjectResult(new ResponseErrorJson(exception!.ErrorMessages));
-        }
+        context.HttpContext.Response.StatusCode = (int)myRecipeBookException.GetStatusCode();
+        context.Result = new ObjectResult(new ResponseErrorJson(myRecipeBookException.GetErrorMessages()));
     }
 
     private static void ThrowUnknowException(ExceptionContext context)
     {
-        context.HttpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+        context.HttpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
         context.Result = new ObjectResult(new ResponseErrorJson(ResourceMessagesException.UNKNOWN_ERROR));
     }
 }

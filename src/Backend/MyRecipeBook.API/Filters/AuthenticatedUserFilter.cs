@@ -30,38 +30,35 @@ public class AuthenticatedUserFilter : IAsyncAuthorizationFilter
             var userIdentifier = _accessTokenValidator.ValidateAndGetUserIdentifier(token);
 
             var exist = await _repository.ExistActiveUserWithIdentifier(userIdentifier);
-
             if (exist.IsFalse())
             {
-                throw new MyRecepiBookException(ResourceMessagesException.USER_WITHOUT_PERMISSION_ACCESS_RESOURCE);
+                throw new UnauthorizedException(ResourceMessagesException.USER_WITHOUT_PERMISSION_ACCESS_RESOURCE);
             }
         }
         catch (SecurityTokenExpiredException)
         {
             context.Result = new UnauthorizedObjectResult(new ResponseErrorJson("TokenIsExpired")
             {
-                TokenIsExpired = true
+                TokenIsExpired = true,
             });
         }
-        catch (MyRecepiBookException ex)
+        catch (MyRecepiBookException myRecipeBookException)
         {
-            context.Result = new UnauthorizedObjectResult(new ResponseErrorJson(ex.Message));
+            context.HttpContext.Response.StatusCode = (int)myRecipeBookException.GetStatusCode();
+            context.Result = new ObjectResult(new ResponseErrorJson(myRecipeBookException.GetErrorMessages()));
         }
         catch
         {
-            context.Result =
-                new UnauthorizedObjectResult(
-                    new ResponseErrorJson(ResourceMessagesException.USER_WITHOUT_PERMISSION_ACCESS_RESOURCE));
+            context.Result = new UnauthorizedObjectResult(new ResponseErrorJson(ResourceMessagesException.USER_WITHOUT_PERMISSION_ACCESS_RESOURCE));
         }
     }
 
     private static string TokenOnRequest(AuthorizationFilterContext context)
     {
         var authentication = context.HttpContext.Request.Headers.Authorization.ToString();
-
         if (string.IsNullOrWhiteSpace(authentication))
         {
-            throw new MyRecepiBookException(ResourceMessagesException.NO_TOKEN);
+            throw new UnauthorizedException(() => ResourceMessagesException.NO_TOKEN);
         }
 
         return authentication["Bearer ".Length..].Trim();

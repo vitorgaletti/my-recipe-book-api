@@ -14,7 +14,7 @@ public class AutoMapping : Profile
     {
         _idEnconder = idEnconder;
         RequestToDomain();
-        RequestToResponse();
+        DomainToResponse();
     }
 
     private void RequestToDomain()
@@ -36,14 +36,25 @@ public class AutoMapping : Profile
         CreateMap<RequestInstructionJson, Domain.Entities.Instruction>();
     }
 
-    private void RequestToResponse()
+    private void DomainToResponse()
     {
-        CreateMap<User, ResponseUserProfileJson>();
-        CreateMap<Recipe, ResponseRegiteredRecipeJson>()
+        CreateMap<Domain.Entities.User, ResponseUserProfileJson>();
+
+        CreateMap<Domain.Entities.Recipe, ResponseRegiteredRecipeJson>()
             .ForMember(dest => dest.Id, config => config.MapFrom(source => _idEnconder.Encode(source.Id)));
-        
-        CreateMap<Recipe, ResponseShortRecipeJson>()
+
+        CreateMap<Domain.Entities.Recipe, ResponseShortRecipeJson>()
             .ForMember(dest => dest.Id, config => config.MapFrom(source => _idEnconder.Encode(source.Id)))
             .ForMember(dest => dest.AmountIngredients, config => config.MapFrom(source => source.Ingredients.Count));
+
+        CreateMap<Domain.Entities.Recipe, ResponseRecipeJson>()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(source => _idEnconder.Encode(source.Id)))
+            .ForMember(dest => dest.DishTypes, opt => opt.MapFrom(source => source.DishTypes.Select(r => r.Type)));
+
+        CreateMap<Domain.Entities.Ingredient, ResponseIngredientJson>()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(source => _idEnconder.Encode(source.Id)));
+
+        CreateMap<Domain.Entities.Instruction, ResponseInstructionJson>()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(source => _idEnconder.Encode(source.Id)));
     }
 }
