@@ -7,6 +7,7 @@ using MyRecipeBook.Application.UseCases.Recipe.Delete;
 using MyRecipeBook.Application.UseCases.Recipe.Filter;
 using MyRecipeBook.Application.UseCases.Recipe.GetById;
 using MyRecipeBook.Application.UseCases.Recipe.Register;
+using MyRecipeBook.Application.UseCases.Recipe.Update;
 
 namespace MyRecipeBook.API.Controllers;
 
@@ -59,9 +60,24 @@ public class RecipeController : MyRecipeBookBaseController
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Delete([FromServices] IDeleteRecipeUseCase useCase,
-        [FromRoute] [ModelBinder(typeof(MyRecipeBookIdBinder))] long id)
+        [FromRoute] [ModelBinder(typeof(MyRecipeBookIdBinder))]
+        long id)
     {
         await useCase.Execute(id);
+
+        return NoContent();
+    }
+
+    [HttpPut]
+    [Route("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> Update([FromServices] IUpdateRecipeUseCase useCase,
+        [FromRoute] [ModelBinder(typeof(MyRecipeBookIdBinder))]
+        long id,
+        [FromBody] RequestRecipeJson request)
+    {
+        await useCase.Execute(id, request);
 
         return NoContent();
     }
