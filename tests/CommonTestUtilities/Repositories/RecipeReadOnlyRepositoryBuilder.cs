@@ -17,11 +17,18 @@ public class RecipeReadOnlyRepositoryBuilder
 
         return this;
     }
-    
+
     public RecipeReadOnlyRepositoryBuilder GetById(User user, Recipe? recipe)
     {
-        if(recipe is not null)
+        if (recipe is not null)
             _repository.Setup(repository => repository.GetById(user, recipe.Id)).ReturnsAsync(recipe);
+
+        return this;
+    }
+
+    public RecipeReadOnlyRepositoryBuilder GetForDashboard(User user, IList<Recipe> recipes)
+    {
+        _repository.Setup(i => i.GetForDashboard(user)).ReturnsAsync(recipes);
 
         return this;
     }
