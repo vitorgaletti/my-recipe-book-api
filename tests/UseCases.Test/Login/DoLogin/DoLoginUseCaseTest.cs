@@ -33,21 +33,19 @@ public class DoLoginUseCaseTest
     }
 
     [Fact]
-    public async Task Error_Invalid_Use()
+    public async Task Error_Invalid_User()
     {
         var request = RequestLoginJsonBuilder.Build();
 
-        var (user, password) = UserBuilder.Build();
-        
-        var useCase = CreateUseCase(user);
+        var useCase = CreateUseCase();
 
-        Func<Task> act = async () => await useCase.Execute(request);
+        Func<Task> act = async () => { await useCase.Execute(request); };
 
         await act.Should().ThrowAsync<InvalidLoginException>()
-            .Where(e => e.Message.Equals(ResourceMessagesException.EMAIL_OR_PASSWORD_INVALID));
+            .Where(e => e.GetErrorMessages().Contains(ResourceMessagesException.EMAIL_OR_PASSWORD_INVALID));
     }
 
-    private static DoLoginUseCase CreateUseCase(MyRecipeBook.Domain.Entities.User? user)
+    private static DoLoginUseCase CreateUseCase(MyRecipeBook.Domain.Entities.User?  user = null)
     {
         var passwordEncripter = PasswordEncripterBuilder.Build();
         var userReadOnlyRepositoryBuilder = new UserReadOnlyRepositoryBuilder();

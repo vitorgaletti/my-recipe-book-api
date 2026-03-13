@@ -54,6 +54,7 @@ public class RecipeValidatorTest
     [InlineData(null)]
     [InlineData("          ")]
     [InlineData("")]
+    [System .Diagnostics.CodeAnalysis.SuppressMessage("Usage", "xUnit1012:Null should only be used for nullable parameters", Justification = "Because it is a unit test" )]
     public void Error_Empty_Title(string title)
     {
         var validator = new RecipeValidator();

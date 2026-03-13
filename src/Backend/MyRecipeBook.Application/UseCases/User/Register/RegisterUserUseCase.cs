@@ -44,7 +44,7 @@ public class RegisterUserUseCase(IUserWriteOnlyRepository writeOnlyRepository,
     {
         var validator = new RegisterUserValidator();
         
-        var result = validator.Validate(request);
+        var result = await validator.ValidateAsync(request);
 
         var emailExist = await readOnlyRepository.ExistActiveUserWithEmail(request.Email);
 
