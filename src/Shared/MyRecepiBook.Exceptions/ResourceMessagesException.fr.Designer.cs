@@ -105,6 +105,15 @@ namespace MyRecepiBook.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Les ingrédients en double ne sont pas autorisés dans la liste..
+        /// </summary>
+        internal static string DUPLICATED_INGREDIENTS_IN_LIST {
+            get {
+                return ResourceManager.GetString("DUPLICATED_INGREDIENTS_IN_LIST", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email déjà enregistré..
         /// </summary>
         internal static string EMAIL_ALREADY_REGISTERED {
@@ -150,6 +159,15 @@ namespace MyRecepiBook.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Format d&apos;ingrédient non valide. Veuillez vous assurer que l&apos;ingrédient respecte notre modèle..
+        /// </summary>
+        internal static string INGREDIENT_NOT_FOLLOWING_PATTERN {
+            get {
+                return ResourceManager.GetString("INGREDIENT_NOT_FOLLOWING_PATTERN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to L&apos;instruction est vide, veuillez fournir une instruction valide..
         /// </summary>
         internal static string INSTRUCTION_EMPTY {
@@ -164,6 +182,15 @@ namespace MyRecepiBook.Exceptions {
         internal static string INSTRUCTION_EXCEEDS_LIMIT_CHARACTERS {
             get {
                 return ResourceManager.GetString("INSTRUCTION_EXCEEDS_LIMIT_CHARACTERS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nombre d&apos;ingrédients non valide. La liste doit contenir entre 1 et 5 ingrédients..
+        /// </summary>
+        internal static string INVALID_NUMBER_INGREDIENTS {
+            get {
+                return ResourceManager.GetString("INVALID_NUMBER_INGREDIENTS", resourceCulture);
             }
         }
         

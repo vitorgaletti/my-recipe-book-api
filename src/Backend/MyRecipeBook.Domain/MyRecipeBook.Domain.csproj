@@ -8,6 +8,45 @@
 
     <ItemGroup>
       <Compile Remove="Class1.cs" />
+      <Compile Update="Services\OpenAI\ResourceOpenAI.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>ResourceOpenAI.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Services\OpenAI\ResourceOpenAI.pt-PT.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>ResourceOpenAI.pt-PT.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Services\OpenAI\ResourceOpenAI.pt-BR.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>ResourceOpenAI.pt-BR.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Services\OpenAI\ResourceOpenAI.fr.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>ResourceOpenAI.fr.resx</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Update="Services\OpenAI\ResourceOpenAI.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>ResourceOpenAI.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Services\OpenAI\ResourceOpenAI.pt-PT.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>ResourceOpenAI.pt-PT.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Services\OpenAI\ResourceOpenAI.pt-BR.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>ResourceOpenAI.pt-BR.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Services\OpenAI\ResourceOpenAI.fr.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>ResourceOpenAI.fr.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
 
 </Project>
