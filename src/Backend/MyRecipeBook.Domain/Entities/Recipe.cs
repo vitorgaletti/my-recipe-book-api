@@ -16,5 +16,7 @@ public class Recipe : EntityBase
     
     public IList<DishType> DishTypes { get; set; } = [];
     
+    public string? ImageIdentifier { get; set; }
+    
     public long UserId { get; set; }
 }

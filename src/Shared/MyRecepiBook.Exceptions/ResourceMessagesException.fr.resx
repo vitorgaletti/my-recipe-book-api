@@ -96,4 +96,7 @@
     <data name="INGREDIENT_NOT_FOLLOWING_PATTERN" xml:space="preserve">
         <value>Format d'ingrédient non valide. Veuillez vous assurer que l'ingrédient respecte notre modèle.</value>
     </data>
+    <data name="ONLY_IMAGES_ACCEPTED" xml:space="preserve">
+        <value>Seules les images (PNG, JPG, JPEG) sont acceptées.</value>
+    </data>
 </root>

@@ -1,3 +1,4 @@
+using CommonTestUtilities.BlobStorage;
 using CommonTestUtilities.Entities;
 using CommonTestUtilities.IdEncryption;
 using CommonTestUtilities.Tokens;
@@ -38,6 +39,9 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
 
                 var provider = services.AddEntityFrameworkInMemoryDatabase().BuildServiceProvider();
 
+                var blobStorage = new BlobStorageServiceBuilder().Build();
+                services.AddScoped(option => blobStorage);
+                
                 services.AddDbContext<MyRecepiBookDbContext>(options =>
                 {
                     options.UseInMemoryDatabase("InMemoryDbForTesting");

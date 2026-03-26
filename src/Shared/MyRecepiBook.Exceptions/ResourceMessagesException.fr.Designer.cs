@@ -231,6 +231,15 @@ namespace MyRecepiBook.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Seules les images (PNG, JPG, JPEG) sont acceptées..
+        /// </summary>
+        internal static string ONLY_IMAGES_ACCEPTED {
+            get {
+                return ResourceManager.GetString("ONLY_IMAGES_ACCEPTED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Le mot de passe saisi est différent du mot de passe actuel..
         /// </summary>
         internal static string PASSWORD_DIFFERENT_CURRENT_PASSWORD {

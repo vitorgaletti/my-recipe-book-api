@@ -24,11 +24,11 @@ public class RegisterRecipeTest : MyRecipeBookClassFixture
     [Fact]
     public async Task Success()
     {
-        var request = RequestRecipeJsonBuilder.Build();
+        var request = RequestRegisterRecipeFormDataBuilder.Build();
 
         var token = JwtTokenGeneratorBuilder.Build().Generate(_userIdentifier);
 
-        var response = await DoPost(method: METHOD, request, token);
+        var response = await DoPostFormData(method: METHOD, request: request, token: token);
 
         response.StatusCode.Should().Be(HttpStatusCode.Created);
 
@@ -44,12 +44,12 @@ public class RegisterRecipeTest : MyRecipeBookClassFixture
     [ClassData(typeof(CultureInlineDataTest))]
     public async Task Error_Title_Empty(string culture)
     {
-        var request = RequestRecipeJsonBuilder.Build();
+        var request = RequestRegisterRecipeFormDataBuilder.Build();
         request.Title = string.Empty;
 
         var token = JwtTokenGeneratorBuilder.Build().Generate(_userIdentifier);
 
-        var response = await DoPost(method: METHOD, request, token, culture);
+        var response = await DoPostFormData(method: METHOD, request: request, token: token, culture: culture);
 
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
 
@@ -59,8 +59,7 @@ public class RegisterRecipeTest : MyRecipeBookClassFixture
 
         var errors = responseData.RootElement.GetProperty("errors").EnumerateArray();
 
-        var expectedMessage =
-            ResourceMessagesException.ResourceManager.GetString("RECIPE_TITLE_EMPTY", new CultureInfo(culture));
+        var expectedMessage = ResourceMessagesException.ResourceManager.GetString("RECIPE_TITLE_EMPTY", new CultureInfo(culture));
 
         errors.Should().HaveCount(1).And.Contain(c => c.GetString()!.Equals(expectedMessage));
     }

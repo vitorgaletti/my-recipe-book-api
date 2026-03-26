@@ -1,4 +1,5 @@
 using System.Reflection;
+using Azure.Storage.Blobs;
 using FluentMigrator.Runner;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -11,6 +12,8 @@ using MyRecepiBook.Infrastructure.Security.Tokens.Access.Generator;
 using MyRecepiBook.Infrastructure.Security.Tokens.Access.Validator;
 using MyRecepiBook.Infrastructure.Services.LoggedUser;
 using MyRecepiBook.Infrastructure.Services.OpenAI;
+using MyRecepiBook.Infrastructure.Services.Storage;
+using MyRecipeBook.Domain.Extensions;
 using MyRecipeBook.Domain.Repositories;
 using MyRecipeBook.Domain.Repositories.Recipe;
 using MyRecipeBook.Domain.Repositories.User;
@@ -18,6 +21,7 @@ using MyRecipeBook.Domain.Security.Cryptography;
 using MyRecipeBook.Domain.Security.Tokens;
 using MyRecipeBook.Domain.Services.LoggedUser;
 using MyRecipeBook.Domain.Services.OpenAI;
+using MyRecipeBook.Domain.Services.Storage;
 using MyRecipeBook.Domain.ValueObjects;
 using OpenAI.Chat;
 
@@ -32,6 +36,7 @@ public static class DependencyInjectionExtension
         AddLoggedUser(services);
         AddTokens(services, configuration);
         AddOpenAI(services, configuration);
+        AddAzureStorage(services, configuration);
 
         if (configuration.IsUniTestEnviroment())
             return;
@@ -98,5 +103,16 @@ public static class DependencyInjectionExtension
         var apiKey = configuration.GetValue<string>("Settings:OpenAI:ApiKey");
 
         services.AddScoped(c => new ChatClient(MyRecipeBookRuleConstants.CHAT_MODEL, apiKey));
+    }
+
+    private static void AddAzureStorage(IServiceCollection services, IConfiguration configuration)
+    {
+        var connectionString = configuration.GetValue<string>("Settings:BlobStorage:Azure");
+
+        if (connectionString.NotEmpty())
+        { 
+            services.AddScoped<IBlobStorageService>(c => new AzureStorageService(new BlobServiceClient(connectionString))); 
+        }
+        
     }
 }
