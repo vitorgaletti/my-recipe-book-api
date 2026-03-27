@@ -10,4 +10,6 @@ public interface IBlobStorageService
     
     Task Delete(User user, string fileName);
 
+    Task DelteContainer(Guid userIdentifier);
+
 }

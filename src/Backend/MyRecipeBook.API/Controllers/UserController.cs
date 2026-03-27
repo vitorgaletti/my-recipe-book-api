@@ -3,6 +3,7 @@ using MyRecepiBook.Communication.Requests;
 using MyRecepiBook.Communication.Responses;
 using MyRecipeBook.API.Attributes;
 using MyRecipeBook.Application.UseCases.User.ChangePassword;
+using MyRecipeBook.Application.UseCases.User.Delete.Request;
 using MyRecipeBook.Application.UseCases.User.Profile;
 using MyRecipeBook.Application.UseCases.User.Register;
 using MyRecipeBook.Application.UseCases.User.Update;
@@ -51,6 +52,16 @@ public class UserController : MyRecipeBookBaseController
         [FromBody] RequestChangePasswordJson request)
     {
         await useCase.Execute(request);
+
+        return NoContent();
+    }
+    
+    [HttpDelete]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [AuthenticatedUser]
+    public async Task<IActionResult> Delete([FromServices] IRequestDeleteUserUseCase useCase)
+    {
+        await useCase.Execute();
 
         return NoContent();
     }
