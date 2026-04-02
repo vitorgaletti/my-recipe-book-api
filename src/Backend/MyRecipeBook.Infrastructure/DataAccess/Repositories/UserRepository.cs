@@ -21,6 +21,12 @@ public class UserRepository(MyRecepiBookDbContext dbContext) : IUserWriteOnlyRep
     public async Task<bool> ExistActiveUserWithIdentifier(Guid userIdentifier) =>
         await dbContext.Users.AnyAsync(user => user.UserIdentifier.Equals(userIdentifier) && user.IsActive);
 
+    public async Task<User?> GetByEmail(string email)
+    {
+        return await dbContext.Users.AsNoTracking()
+            .FirstOrDefaultAsync(user => user.IsActive && user.Email.Equals(email));
+    }
+
     public async Task<User> GetById(long id)
     {
         return await dbContext.Users.FirstAsync(user => user.Id == id);
@@ -31,7 +37,7 @@ public class UserRepository(MyRecepiBookDbContext dbContext) : IUserWriteOnlyRep
     public async Task DeleteAccount(Guid userIdentifier)
     {
         var user = await dbContext.Users.FirstOrDefaultAsync(user => user.UserIdentifier == userIdentifier);
-        
+
         if (user is null)
             return;
 
