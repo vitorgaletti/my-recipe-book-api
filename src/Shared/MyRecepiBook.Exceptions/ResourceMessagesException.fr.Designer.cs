@@ -150,6 +150,15 @@ namespace MyRecepiBook.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Votre session a expiré. Veuillez vous connecter à nouveau pour continuer..
+        /// </summary>
+        internal static string EXPIRED_SESSION {
+            get {
+                return ResourceManager.GetString("EXPIRED_SESSION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to L&apos;ingrédient est vide, veuillez fournir une valeur valide..
         /// </summary>
         internal static string INGREDIENT_EMPTY {
@@ -200,6 +209,15 @@ namespace MyRecepiBook.Exceptions {
         internal static string INVALID_PASSWORD {
             get {
                 return ResourceManager.GetString("INVALID_PASSWORD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nous n&apos;avons pas trouvé de session valide. Veuillez vous connecter pour accéder à cette fonctionnalité..
+        /// </summary>
+        internal static string INVALID_SESSION {
+            get {
+                return ResourceManager.GetString("INVALID_SESSION", resourceCulture);
             }
         }
         

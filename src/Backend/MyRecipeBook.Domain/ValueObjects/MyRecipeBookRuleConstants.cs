@@ -7,4 +7,6 @@ public abstract class MyRecipeBookRuleConstants
  public const int MAXIMUM_IMAGE_URL_LIFETIMR_IN_MINUTES = 10;
  
  public const string CHAT_MODEL = "gpt-4o";
+ 
+ public const int REFRESH_TOKEN_EXPIRATION_DAYS = 7;
 }

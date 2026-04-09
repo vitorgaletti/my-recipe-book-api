@@ -46,11 +46,10 @@ public class ChangePasswordUseCase : IChangePasswordUseCase
     private void Validate(RequestChangePasswordJson request, Domain.Entities.User loggedUser)
     {
         var result = new ChangePasswordValidator().Validate(request);
-        
-        var currentPasswordEncripted = _passwordEncripter.Encrypt(request.Password);
 
-        if (currentPasswordEncripted.Equals(loggedUser.Password).IsFalse())
-            result.Errors.Add(new FluentValidation.Results.ValidationFailure(string.Empty, ResourceMessagesException.PASSWORD_DIFFERENT_CURRENT_PASSWORD));
+        if (_passwordEncripter.IsValid(request.Password, loggedUser.Password).IsFalse())
+            result.Errors.Add(new FluentValidation.Results.ValidationFailure(string.Empty,
+                ResourceMessagesException.PASSWORD_DIFFERENT_CURRENT_PASSWORD));
 
         if (result.IsValid.IsFalse())
             throw new ErrorOnValidationException(result.Errors.Select(e => e.ErrorMessage).ToList());

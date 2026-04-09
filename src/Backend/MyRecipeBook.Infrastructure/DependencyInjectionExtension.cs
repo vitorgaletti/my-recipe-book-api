@@ -11,6 +11,7 @@ using MyRecepiBook.Infrastructure.Extensions;
 using MyRecepiBook.Infrastructure.Security.Criptography;
 using MyRecepiBook.Infrastructure.Security.Tokens.Access.Generator;
 using MyRecepiBook.Infrastructure.Security.Tokens.Access.Validator;
+using MyRecepiBook.Infrastructure.Security.Tokens.Refresh;
 using MyRecepiBook.Infrastructure.Services.LoggedUser;
 using MyRecepiBook.Infrastructure.Services.OpenAI;
 using MyRecepiBook.Infrastructure.Services.ServiceBus;
@@ -18,6 +19,7 @@ using MyRecepiBook.Infrastructure.Services.Storage;
 using MyRecipeBook.Domain.Extensions;
 using MyRecipeBook.Domain.Repositories;
 using MyRecipeBook.Domain.Repositories.Recipe;
+using MyRecipeBook.Domain.Repositories.Token;
 using MyRecipeBook.Domain.Repositories.User;
 using MyRecipeBook.Domain.Security.Cryptography;
 using MyRecipeBook.Domain.Security.Tokens;
@@ -34,7 +36,7 @@ public static class DependencyInjectionExtension
 {
     public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        AddPasswordEncrypter(services, configuration);
+        AddPasswordEncrypter(services);
         AddRepositories(services);
         AddLoggedUser(services);
         AddTokens(services, configuration);
@@ -69,6 +71,7 @@ public static class DependencyInjectionExtension
         services.AddScoped<IRecipeWriteOnlyRepository, RecipeRepository>();
         services.AddScoped<IRecipeReadOnlyRepository, RecipeRepository>();
         services.AddScoped<IRecipeUpdateOnlyRepository, RecipeRepository>();
+        services.AddScoped<ITokenRepository, TokenRepository>();
     }
 
     private static void AddFluentMigrator_MySql(IServiceCollection services, IConfiguration configuration)
@@ -90,15 +93,15 @@ public static class DependencyInjectionExtension
 
         services.AddScoped<IAccessTokenGenerator>(option => new JwtTokenGenerator(expirationTimeMinutes, signingKey!));
         services.AddScoped<IAccessTokenValidator>(option => new JwtTokenValidator(signingKey!));
+        
+        services.AddScoped<IRefreshTokenGenerator, RefreshTokenGenerator>();
     }
 
     private static void AddLoggedUser(IServiceCollection services) => services.AddScoped<ILoggedUser, LoggedUser>();
 
-    private static void AddPasswordEncrypter(IServiceCollection services, IConfiguration configuration)
+    private static void AddPasswordEncrypter(IServiceCollection services)
     {
-        var additionalKey = configuration.GetValue<string>("Settings:Password:AdditionalKey");
-
-        services.AddScoped<IPasswordEncripter>(option => new Sha512Encripter(additionalKey!));
+        services.AddScoped<IPasswordEncripter, BCryptNet>();
     }
 
     private static void AddOpenAI(IServiceCollection services, IConfiguration configuration)
