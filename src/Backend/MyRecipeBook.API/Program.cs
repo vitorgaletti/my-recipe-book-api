@@ -1,6 +1,9 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.OpenApi.Models;
 using MyRecepiBook.Infrastructure;
+using MyRecepiBook.Infrastructure.DataAccess;
 using MyRecepiBook.Infrastructure.Extensions;
 using MyRecepiBook.Infrastructure.Migrations;
 using MyRecipeBook.API.BackgroundServices;
@@ -74,7 +77,19 @@ if (builder.Configuration.IsUniTestEnviroment().IsFalse())
     AddGoogleAuthentication();
 }
 
+builder.Services.AddHealthChecks().AddDbContextCheck<MyRecepiBookDbContext>();
+
 var app = builder.Build();
+
+app.MapHealthChecks("/Health", new HealthCheckOptions
+{
+    AllowCachingResponses = false,
+    ResultStatusCodes  =
+    {
+        [HealthStatus.Healthy] = StatusCodes.Status200OK,
+        [HealthStatus.Unhealthy] = StatusCodes.Status503ServiceUnavailable
+    }
+});
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
